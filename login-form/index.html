@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Login Form</title>
+
+
+
+      <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+  <body>
+	<div class="login">
+		<div class="login-screen">
+			<div class="app-title">
+				<h1>Login</h1>
+			</div>
+
+			<div class="login-form">
+				<div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="username" id="login-name">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+				</div>
+
+				<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="password" id="login-pass">
+				<label class="login-field-icon fui-lock" for="login-pass"></label>
+				</div>
+
+				<a class="btn btn-primary btn-large btn-block" href="#">login</a>
+				<a class="login-link" href="#">Lost your password?</a>
+			</div>
+		</div>
+	</div>
+
+<script src="./golos.min.js"></script>
+<script>
+golos.api.getAccounts(['ned', 'dan'], function(err, response){
+  console.log(err, response);
+});
+</script>
+<script>
+console.log(123);
+  var username = 'epexa';
+  var password = 'P5...';  // master password
+  // object in which the key type public key (active, memo, owner, posting), and the value of the array in the array itself is the public key
+  var auths = {
+    posting: [['GLS6...']]
+  };
+  var verifyResult = golos.auth.verify(username, password, auths);
+  console.log('verify', verifyResult);
+</script>
+</body>
+
+
+
+</body>
+
+</html>
