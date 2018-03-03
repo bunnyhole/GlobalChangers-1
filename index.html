@@ -22,6 +22,7 @@
         <div class="control-group" id="auth_result_fail" style="display: none; color: red">
           Неверный логин/пароль
 				</div>
+
 				<div class="control-group">
 				<input type="text" class="login-field" value="" placeholder="Логин" id="login-name">
 				<label class="login-field-icon fui-user" for="login-name"></label>
@@ -38,7 +39,20 @@
 				</div>
 
 				<a class="btn btn-primary btn-large btn-block" href="#" onclick="auth()">Войти</a>
-				<a class="login-link" href="#">Забыли пароль?</a>
+				<a class="login-link" href="#"
+          onclick='document.getElementById("easter_egg").style.display = "block";'>Забыли пароль?</a>
+        <br>
+        <div class="control-group" id="easter_egg" style="display: none; text-align:left;">
+          <ul>
+            <li>Первое правило сети Голос: не теряйте свой пароль.</li>
+            <li>Второе правило Голос: Не теряйте свой пароль.</li>
+            <li>Третье правило Голос: мы не можем восстановить Ваш пароль.</li>
+            <li>Четвертое правило: если Вы можете запомнить свой пароль, значит он не безопасен.</li>
+            <li>Пятое правило: используйте только сгенерированные случайным образом пароли.</li>
+            <li>Шестое правило: Никому не говорите свой пароль.</li>
+            <li>Седьмое правило: Всегда надежно храните свой пароль.</li>
+        </ul>
+				</div>
 			</div>
 		</div>
 	</div>
