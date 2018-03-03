@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Golos.js</title>
+</head>
+<body>
+
+<script src="golos.min.js"></script>
+<script>
+
+var query = {
+  //select_tags: ['videotest'],
+  limit: 10,
+};
+
+
+steem.api.getDiscussionsByCreated(query, function(err, result) {
+  if (!err) {
+    result.forEach(function(item) {
+      console.log('getDiscussionsByTrending', item);
+    });
+  }
+  else console.error(err);
+});
+
+</script>
+
+</body>
+</html>
