@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Login Form</title>
+  <title>Авторизация</title>
   <link rel="stylesheet" href="style/style.css">
+  <link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
 </head>
 
 <body>
@@ -16,6 +17,12 @@
 			</div>
 
 			<div class="login-form">
+        <div class="control-group" id="auth_result_success" style="display: none; color: green">
+          Успешно
+				</div>
+        <div class="control-group" id="auth_result_fail" style="display: none; color: red">
+          Неверный логин/пароль
+				</div>
 				<div class="control-group">
 				<input type="text" class="login-field" value="" placeholder="Логин" id="login-name">
 				<label class="login-field-icon fui-user" for="login-name"></label>
@@ -26,7 +33,7 @@
 				<label class="login-field-icon fui-lock" for="login-pass"></label>
 				</div>
 
-				<a class="btn btn-primary btn-large btn-block" href="#">Войти</a>
+				<a class="btn btn-primary btn-large btn-block" href="#" onclick="auth()">Войти</a>
 				<a class="login-link" href="#">Забыли пароль?</a>
 			</div>
 		</div>
@@ -34,14 +41,31 @@
 
   <script src="golos.min_global.js"></script>
   <script>
-    var username = 'bunnyhole';
-    var password = 'P5JrKAMbYzRdg4wsd3SCrtr5jNKQoPR1jYvc2H9N4FNscz6DdYCC';  // master password
-    // object in which the key type public key (active, memo, owner, posting), and the value of the array in the array itself is the public key
-    var auths = {
-      posting: [['GLS69gkA3z1J9LtoZ3vameBQSpuEPsfhTjMjFfy27EEaSSabfZWWi']]
-    };
-    var verifyResult = golos.auth.verify(username, password, auths);
-    console.log('verify', verifyResult);
+    function auth(){
+      var username = document.getElementById("login-name").value;
+      var password = document.getElementById("login-pass").value;
+
+
+
+
+      // var username = 'bunnyhole';
+      // var password = 'P5JrKAMbYzRdg4wsd3SCrtr5jNKQoPR1jYvc2H9N4FNscz6DdYCC';  // master password
+      // object in which the key type public key (active, memo, owner, posting), and the value of the array in the array itself is the public key
+      var auths = {
+        posting: [['GLS69gkA3z1J9LtoZ3vameBQSpuEPsfhTjMjFfy27EEaSSabfZWWi']]
+      };
+      var verifyResult = golos.auth.verify(username, password, auths);
+      console.log('verify', verifyResult);
+      if(verifyResult){
+        document.getElementById("auth_result_success").style.display = "block";
+        document.getElementById("auth_result_fail").style.display = "none";
+      } else{
+        document.getElementById("auth_result_success").style.display = "none";
+        document.getElementById("auth_result_fail").style.display = "block";
+      }
+      // var auth_result = document.getElementById("auth_result");
+      // auth_result.style.display = "block";
+    }
 
   </script>
 </body>
