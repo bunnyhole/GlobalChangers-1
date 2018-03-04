@@ -7,7 +7,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>My Play a Entertainment Category Flat Bootstrap Responsive Website Template | single :: w3layouts</title>
+<title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -34,6 +34,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 
 <script>
+	var a = getCookie("video_name");
+	console.log($("#h3_title"));
+	$("#h3_title").html(a);
 	$(document).ready(function() {
         console.log($('#HTML_element'))
         $("#HTML_element").html('<source src="' + getCookie("video") + '" type="video/mp4"></source>');
@@ -92,7 +95,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-sm-10 single-left">
 					<div class="song">
 						<div class="song-info">
-							<h3>Etiam molestie nisl eget consequat pharetra</h3>	
+							<h3 id="h3_title"></h3>
 					</div>
 						<div class="video-grid">
 							<video controls="controls" id="HTML_element"  style="width: 100%">

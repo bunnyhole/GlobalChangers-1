@@ -94,7 +94,8 @@ $(document).ready = function() {
 </script>
 
 <script>
-    function ref(name) {
+    function ref(name,title) {
+        setCookie("video_name", title);
         setCookie("video", $('#' + name)[0].src, {});
         window.location.replace("single.html");
 
@@ -153,7 +154,7 @@ $(document).ready = function() {
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
 						<div class="resent-grid-img recommended-grid-img">
-							<a onclick=ref("video0") ><video id="video0" style="width: 100%"/></a>
+							<a onclick=ref("video0",$(".title-info0").text()) ><video id="video0" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
 							<h3><a class="title title-info0"></a></h3>
