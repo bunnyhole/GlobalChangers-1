@@ -35,8 +35,10 @@ crossorigin="anonymous"></script>
 src="https://code.jquery.com/jquery-3.3.1.min.js"
 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 crossorigin="anonymous"></script>
-<script>
 
+<script src="cookies.js"></script>
+
+<script>
 var query = {
   select_tags: ['videotest'],
   limit: 3,
@@ -47,27 +49,56 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
   if (!err) {
     for (var i = 0; i < 3; ++i) {
       var ipfs_id = result[i].body;
-      console.log(result[i]);
+      //console.log(result[i]);
       let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
       $(".title-info" + i).text(result[i].title);
       $(".author" + i).text(result[i].author);
+      $(".author" + i).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
       $(".views-info" + i).text(result[i].curator_payout_value);
       $("#video" + i)[0].src = video_url;
+      $('#video' + i)[0].loop = 'loop';
+      $('#video' + i)[0].muted = 'muted';
       $("#video" + i)[0].play();
-      //$header = $.parseHTML("<h3 class='video-title'>" + item.title + "</h3>");
-      //$video  = $.parseHTML("<video src=" + video_url + ">");
-      //$("body").append($header);
-      //$("body").append($video);
-      //$video[0].setAttribute('controls', 'controls')*/
     }
   } else {
     console.log(err);
   }
 });
 
+query.limit = 8;
+golos.api.getDiscussionsByCreated(query, function(err, result) {
+  if (!err) {
+    for (var i = 0; i < 8; ++i) {
+      var ipfs_id = result[i].body;
+      console.log(result[i]);
+      let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+      $(".title" + (i + 3)).text(result[i].title);
+      $(".author" + (i + 3)).text(result[i].author);
+      $(".author" + (i + 3)).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
+      $(".views-info" + (i + 3)).text(result[i].curator_payout_value);
+      $("#video" + (i + 3))[0].src = video_url;
+      $('#video' + (i + 3))[0].loop = 'loop';
+      $('#video' + (i + 3))[0].muted = 'muted';
+      $('#video' + (i + 3)).hover(function() {
+        $(this)[0].play();
+      }, function() {
+        $(this)[0].pause();
+      });
+    }
+  } else {
+    console.log(err);
+  }
+});
 </script>
 
-
+<script>
+  var auth_link = $('#auth_link');
+  if (getCookie("login")) {
+    auth_div.children()[0].text("");
+  } else {
+    auth_div.children()[0].text("Вход");
+  }
+</script>
 </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -87,7 +118,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 					<a href="upload.html">Загрузить</a>
 				</div>
 				<div class="signin">
-					<a href="auth.html">Войти</a>
+					<a href="auth.html" id="auth_link">Войти</a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -163,49 +194,49 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r1.jpg" alt="" /></a>
+								<a href="single.html"><video id="video3" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Varius sit sed viverra viverra nullam nullam interdum metus</a></h5>
+								<h5><a href="single.html" class="title3">Varius sit sed viverra viverra nullam nullam interdum metus</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author3">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info3">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r2.jpg" alt="" /></a>
+								<a href="single.html"><video id="video4" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+								<h5><a href="single.html" class="title4">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author4">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info4">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r3.jpg" alt="" /></a>
+								<a href="single.html"><video id="video5" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+								<h5><a href="single.html" class="title5">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author5">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info5">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r4.jpg" alt="" /></a>
+								<a href="single.html"><video id="video6" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
+								<h5><a href="single.html" class="title6">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author6">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info6">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
@@ -214,49 +245,49 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 					<div class="recommended-grids">
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r4.jpg" alt="" /></a>
+								<a href="single.html"><video id="video7" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+								<h5><a href="single.html" class="title7">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author7">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info7">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r5.jpg" alt="" /></a>
+								<a href="single.html"><video id="video8" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+								<h5><a href="single.html" class="title8">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author8">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info8">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r6.jpg" alt="" /></a>
+								<a href="single.html"><video id="video9" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
+								<h5><a href="single.html" class="title9">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author9">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info9">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-								<a href="single.html"><img src="images/r1.jpg" alt="" /></a>
+								<a href="single.html"><video id="video10" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
-								<h5><a href="single.html" class="title">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
+								<h5><a href="single.html" class="title10">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
 								<ul>
-									<li><p class="author author-info"><a href="#" class="author">John Maniya</a></p></li>
-									<li class="right-list"><p class="views views-info">2,114,200 views</p></li>
+									<li><p class="author author-info"><a href="#" class="author10">John Maniya</a></p></li>
+									<li class="right-list"><p class="views views-info10">2,114,200 views</p></li>
 								</ul>
 							</div>
 						</div>
