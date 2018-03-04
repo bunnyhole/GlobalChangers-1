@@ -26,6 +26,73 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 <!-- //fonts -->
 <link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
+<title>Golos.js</title>
+<script src="https://wzrd.in/standalone/buffer"></script>
+<script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
+integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
+crossorigin="anonymous"></script>
+
+<script>
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+
+
+<script src="golos.min_test.js"></script>
+
+  <script>
+    golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
+    golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+    function upload() {
+      const reader = new FileReader();
+      reader.onloadend = function() {
+        const ipfs = window.IpfsApi('54.213.135.66', 80) // Connect to IPFS
+        const buf = buffer.Buffer(reader.result) // Convert data into buffer
+        ipfs.files.add(buf, (err, result) => { // Upload buffer to IPFS
+          if(err) {
+            console.error(err)
+            return
+          }
+          let url = `https://ipfs.io/ipfs/${result[0].hash}`
+          console.log(`Url --> ${url}`)
+
+          var login = "golos2";
+          var password = "qwerty12345";
+          var post_password = 'GLS6819HPP87DChNud8CscFMN5et1LidR5Vb1VxWQicDBkcvs3rix';
+          
+          var auths = {
+            posting: [[post_password]]
+          };
+          var verifyResult = golos.auth.verify(login, password, auths);
+          console.log('verify', verifyResult);
+
+                    var wif = "5JSmC197rbygTgKVFnpyB62kBWi8cBt6fUx9J7EyErKxdXhLYea";
+          var parentAuthor = '';
+          var parentPermlink = 'videotest';
+          var author = 'vgolos2';
+          var permlink = 'test-url-test-url';
+          var title = 'test';
+          var body = 'test2';
+          var jsonMetadata = '{}';
+  
+
+          golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function(err, result) {
+            if (!err) {
+              window.location.replace("/getvideos");
+            } else {
+              console.log(err);
+            }
+          });
+        }, false);
+      }
+      const photo = document.getElementById("video_file");
+      reader.readAsArrayBuffer(photo.files[0]); // Read Provided File
+    }
+
+  </script>
+
+
+
 </head>
   <body>
 
@@ -61,11 +128,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="upload-grids">
 					<div class="upload-right">
 						<div class="upload-file">
+                <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
 							<div class="services-icon">
 								<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
 							</div>
-							<input type="file" value="Choose file..">
-						</div>
+                <input id="video_file" type="file" value="Choose file..">
+            						</div>
 						<div class="upload-info">
 							<h5>Выбери файлы для загрузки</h5>
 							<span>или</span>
