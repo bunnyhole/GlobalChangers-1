@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <html>
 <head>
 <title>ВГОЛОС</title>
@@ -89,6 +88,23 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
     console.log(err);
   }
 });
+$(document).ready = function() {
+  if (getCookie("login")) {
+    console.log("ya");
+    $(".auth-link").text("Выход");
+  } else {
+    console.log("no");
+    $(".signin").text("Вход");
+  }
+};
+</script>
+
+<script>
+    function ref(name) {
+        setCookie("video", $('#' + name)[0].src, {});
+        window.location.replace("single.html");
+
+    }
 </script>
 
 </head>
@@ -110,7 +126,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 					<a href="upload.html">Загрузить</a>
 				</div>
 				<div class="signin">
-					<a href="auth.html" id="auth_link"></a>
+					<a href="auth.html" class="auth-link"></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -143,7 +159,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
 						<div class="resent-grid-img recommended-grid-img">
-							<a href="single.html"><video id="video0" style="width: 100%"/></a>
+							<a onclick=ref("video0") ><video id="video0" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
 							<h3><a class="title title-info0"></a></h3>

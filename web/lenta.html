@@ -1,10 +1,392 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Лента</title>
+    <title>Новое</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- bootstrap -->
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
+    <!-- //bootstrap -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <!--start-smoth-scrolling-->
+    <!-- fonts -->
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
+    <!-- //fonts -->
 </head>
 <body>
 
+<script src="golos.min_test.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+<script src="cookies.js"></script>
+
+<script>
+    /**
+     * getFollowing() returns subscriptions
+     * @param {String} follower - username subscriber
+     * @param {String} startFollower - position from which item to return result
+     * @param {String} followType - subscription type, value: 'blog' или null
+     * @param {Integer} limit - how many records to return, the maximum value: 100
+     */
+    console.log(getCookie("login"));
+    var follower = "vgolos2";
+    var startFollower = '';
+    var followType = null;
+    var subs = [];
+    var limit = 100;
+    golos.api.getFollowing(follower, startFollower, followType, limit, function(err, result) {
+        //console.log(err, result);
+        console.log(result);
+        for (var i = 0; i < result.length;++i) {
+            subs.push(result[i].following);
+        }
+
+        var query = {
+            select_authors: subs,
+            select_tags: ['videotest'] ,
+            limit: 18,
+        };
+
+        golos.api.getDiscussionsByBlog(query, function(err, result) {
+            if (!err) {
+                for (var i = 0; i < 18; ++i) {
+                    var ipfs_id = result[i].body;
+                    //console.log(result[i]);
+                    let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+                    $(".title-info" + i).text(result[i].title);
+                    $(".author" + i).text(result[i].author);
+                    $(".author" + i).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
+                    $(".views-info" + i).text(result[i].curator_payout_value);
+                    $("#video" + i)[0].src = video_url;
+                    $('#video' + i)[0].loop = 'loop';
+                    $('#video' + i)[0].muted = 'muted';
+                }
+            } else {
+                console.log(err);
+            }
+        });
+    });
+
+
+
+
+</script>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html"><h1><img src="images/logo.png" alt="" /></h1></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <div class="header-top-right">
+                <div class="file">
+                    <a href="upload.html">Загрузить</a>
+                </div>
+                <div class="signin">
+                    <a href="auth.html">Войти</a>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</nav>
+
+<div class="col-sm-3 col-md-2 sidebar">
+    <div class="top-navigation">
+        <div class="t-menu">MENU</div>
+        <div class="t-img">
+            <img src="images/lines.png" alt="" />
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+    <div class="drop-navigation drop-navigation">
+        <ul class="nav nav-sidebar">
+            <li><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Главная</a></li>
+            <li  class="active"><a href="lenta.html" class="sub-icon"><span class="glyphicon glyphicon-home glyphicon-hourglass" aria-hidden="true"></span>Лента</a></li>
+            <li><a href="news.html" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>Новое</a></li>
+        </ul>
+    </div>
+</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="main-grids">
+        <div class="recommended">
+            <div class="recommended-grids english-grid">
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video0" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info0"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author0"></a></p></li>
+                            <li class="right-list"><p class="views views-info0"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video1" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info1"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author1"></a></p></li>
+                            <li class="right-list"><p class="views views-info1"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video2" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info2"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author2"></a></p></li>
+                            <li class="right-list"><p class="views views-info2"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video3" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info3"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author3"></a></p></li>
+                            <li class="right-list"><p class="views views-info3"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video4" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info4"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author4"></a></p></li>
+                            <li class="right-list"><p class="views views-info4"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video5" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info5"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author5"></a></p></li>
+                            <li class="right-list"><p class="views views-info5"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="recommended">
+            <div class="recommended-grids english-grid">
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video6" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info6"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author6"></a></p></li>
+                            <li class="right-list"><p class="views views-info6"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video7" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info7"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author7"></a></p></li>
+                            <li class="right-list"><p class="views views-info7"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video8" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info8"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author8"></a></p></li>
+                            <li class="right-list"><p class="views views-info8"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video9" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info9"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author9"></a></p></li>
+                            <li class="right-list"><p class="views views-info9"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video10" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info10"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author10"></a></p></li>
+                            <li class="right-list"><p class="views views-info10"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video11" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info11"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author11"></a></p></li>
+                            <li class="right-list"><p class="views views-info11"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="recommended">
+            <div class="recommended-grids english-grid">
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video12" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info12"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author12"></a></p></li>
+                            <li class="right-list"><p class="views views-info12"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video13" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info13"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author13"></a></p></li>
+                            <li class="right-list"><p class="views views-info13"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video14" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info14"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author14"></a></p></li>
+                            <li class="right-list"><p class="views views-info14"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video15" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info15"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author15"></a></p></li>
+                            <li class="right-list"><p class="views views-info15"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video16" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info16"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author16"></a></p></li>
+                            <li class="right-list"><p class="views views-info16"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-2 resent-grid recommended-grid slider-top-grids">
+                    <div class="resent-grid-img recommended-grid-img">
+                        <a href="single.html"><video id="video17" style="width: 100%"/></a>
+                    </div>
+                    <div class="resent-grid-info recommended-grid-info">
+                        <h3><a class="title title-info17"></a></h3>
+                        <ul>
+                            <li><p class="author author-info"><a href="#" class="author17"></a></p></li>
+                            <li class="right-list"><p class="views views-info17"></p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!-- footer -->
+    <div class="footer">
+        <div class="footer-grids">
+            <div class="footer-top">
+                <div class="footer-top-nav">
+                    <ul>
+                        <li><a href="about.html">О нас</a></li>
+                        <li><a href="creators.html">Пользователям</a></li>
+                        <li><a href="https://developers.golos.io/">Разработчикам</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //footer -->
+</div>
+<div class="clearfix"> </div>
+<div class="drop-menu">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Regular link</a></li>
+        <li role="presentation" class="disabled"><a role="menuitem" tabindex="-1" href="#">Disabled link</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another link</a></li>
+    </ul>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
 </html>

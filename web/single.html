@@ -25,6 +25,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 <!-- //fonts -->
+	<script src="golos.min_test.js"></script>
+	<script
+			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			crossorigin="anonymous"></script>
+
+	<script src="cookies.js">
+	</script>
+
+<script>
+	$(document).ready(function() {
+        console.log($('#HTML_element'))
+        $("#HTML_element").html('<source src="' + getCookie("video") + '" type="video/mp4"></source>');
+        $('#HTML_element')[0].play()
+    });
+
+</script>
+
+	<link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
 </head>
   <body>
 
@@ -77,12 +95,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<h3>Etiam molestie nisl eget consequat pharetra</h3>	
 					</div>
 						<div class="video-grid">
-							<iframe src="https://www.youtube.com/embed/oYiT-vLjhC4" allowfullscreen></iframe>
+							<video controls="controls" id="HTML_element"  style="width: 100%">
+							</video>
 						</div>
 					</div>
 					<div class="clearfix"> </div>
 					<div class="published">
-						<script src="jquery.min.js"></script>
 							<script>
 								$(document).ready(function () {
 									size_li = $("#myList li").size();
@@ -102,6 +120,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<ul id="myList">
 									<li>
 										<h4>Опубликовано 3 Мар</h4>
+										<ul>
+											<img src="images/like.png">
+											<img src="images/9.png">
+										</ul>
 										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
 									</li>
 									<li>
