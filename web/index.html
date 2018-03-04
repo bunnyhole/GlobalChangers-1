@@ -82,15 +82,21 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
     console.log(err);
   }
 });
-$(document).ready = function() {
+$(document).ready(function() {
   if (getCookie("login")) {
-    console.log("ya");
     $(".auth-link").text("Выход");
+    $(".auth-link").href('#');
+    $(".signin").click(function () {
+      console.log("unlog");
+      deleteCookie("login");
+      deleteCookie("password");
+      deleteCookie("post_password");
+      location.reload();
+    });
   } else {
-    console.log("no");
-    $(".signin").text("Вход");
+    $(".auth-link").text("Вход");
   }
-};
+});
 </script>
 
 </head>

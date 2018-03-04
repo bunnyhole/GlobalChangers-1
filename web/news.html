@@ -37,9 +37,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 
-	golos.api.getDiscussionsByCreated(query, function(err, result) {
+	golos.api.getDiscussionsByBlog(query, function(err, result) {
 		if (!err) {
 			for (var i = 0; i < 18; ++i) {
+        console.log(result.length)
 				var ipfs_id = result[i].body;
 				//console.log(result[i]);
 				let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
