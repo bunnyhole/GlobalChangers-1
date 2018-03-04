@@ -65,6 +65,30 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
   }
 });
 
+query.limit = 8;
+golos.api.getDiscussionsByCreated(query, function(err, result) {
+  if (!err) {
+    for (var i = 0; i < 8; ++i) {
+      var ipfs_id = result[i].body;
+      console.log(result[i]);
+      let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+      $(".title-info" + i + 3).text(result[i].title);
+      $(".author" + i + 3).text(result[i].author);
+      $(".views-info" + i + 3).text(result[i].curator_payout_value);
+      $("#video" + i + 3)[0].src = video_url;
+      $("#video" + i + 3)[0].play();
+      //$header = $.parseHTML("<h3 class='video-title'>" + item.title + "</h3>");
+      //$video  = $.parseHTML("<video src=" + video_url + ">");
+      //$("body").append($header);
+      //$("body").append($video);
+      //$video[0].setAttribute('controls', 'controls')*/
+    }
+  } else {
+    console.log(err);
+  }
+});
+
+
 </script>
 
 
