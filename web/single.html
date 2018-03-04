@@ -34,14 +34,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</script>
 
 <script>
-	var a = getCookie("video_name");
-	console.log($("#h3_title"));
-	$("#h3_title").html(a);
 	$(document).ready(function() {
-        console.log($('#HTML_element'))
+        var a = getCookie("video_name");
+        console.log($("#h3_title"));
+        $("#h3_title").html(a);
+        console.log(getCookie("video_name"));
         $("#HTML_element").html('<source src="' + getCookie("video") + '" type="video/mp4"></source>');
         $('#HTML_element')[0].play()
+
+        $('#h3_title').text(getCookie("video_name"));
+        //deleteCookie("video_name");
+        //deleteCookie("video");
     });
+$(document).ready(function() {
+  if (getCookie("login")) {
+      $(".auth-link").text("Выход");
+      $(".auth-link").attr('href', '#');
+      $(".signin").click(function () {
+        deleteCookie("login");
+        deleteCookie("password");
+        deleteCookie("post_password");
+        location.reload();
+      });
+  } else {
+    $(".auth-link").text("Вход");
+  }
+});
 
 </script>
 
@@ -66,7 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <a href="upload.html">Загрузить</a>
 				  </div>
 				  <div class="signin">
-					  <a href="auth.html">Войти</a>
+					  <a class="auth-link" href="auth.html"></a>
 				  </div>
 				  <div class="clearfix"> </div>
 			  </div>
@@ -122,16 +140,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="load_more">	
 								<ul id="myList">
 									<li>
-										<h4>Опубликовано 3 Мар</h4>
+										<h4>Опубликовано 4 Мар</h4>
 										<ul>
-											<img src="images/like.png">
-											<img src="images/9.png">
 										</ul>
-										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
-									</li>
-									<li>
-										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
-										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
 										<div class="load-grids">
 											<div class="load-grid">
 												<p>Category</p>

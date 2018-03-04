@@ -37,6 +37,14 @@ var query = {
   limit: 3,
 };
 
+function transfer(result, video_url) {
+  return function() {
+        console.log(result.title)
+        setCookie("video_name", result.title);
+        setCookie("video", video_url);
+        window.location.replace("single.html");    
+  }
+}
 
 golos.api.getDiscussionsByCreated(query, function(err, result) {
   if (!err) {
@@ -52,6 +60,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
       $('#video' + i)[0].loop = 'loop';
       $('#video' + i)[0].muted = 'muted';
       $("#video" + i)[0].play();
+      $("#video" + i)[0].addEventListener("click", transfer(result[i], video_url), false);
     }
   } else {
     console.log(err);
@@ -72,6 +81,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
       $("#video" + (i + 3))[0].src = video_url;
       $('#video' + (i + 3))[0].loop = 'loop';
       $('#video' + (i + 3))[0].muted = 'muted';
+      $("#video" + (i + 3))[0].addEventListener("click", transfer(result[i], video_url), false);
       $('#video' + (i + 3)).hover(function() {
         $(this)[0].play();
       }, function() {
@@ -84,29 +94,20 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 });
 $(document).ready(function() {
   if (getCookie("login")) {
-    $(".auth-link").text("Выход");
-    $(".auth-link").href('#');
-    $(".signin").click(function () {
-      console.log("unlog");
-      deleteCookie("login");
-      deleteCookie("password");
-      deleteCookie("post_password");
-      location.reload();
-    });
+      $(".auth-link").text("Выход");
+      $(".auth-link").attr('href', '#');
+      $(".signin").click(function () {
+        deleteCookie("login");
+        deleteCookie("password");
+        deleteCookie("post_password");
+        location.reload();
+      });
   } else {
     $(".auth-link").text("Вход");
   }
 });
 </script>
 
-<script>
-    function ref(name,title) {
-        setCookie("video_name", title);
-        setCookie("video", $('#' + name)[0].src, {});
-        window.location.replace("single.html");
-
-    }
-</script>
 
 </head>
   <body>
@@ -160,7 +161,7 @@ $(document).ready(function() {
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
 						<div class="resent-grid-img recommended-grid-img">
-							<a onclick=ref("video0",$(".title-info0").text()) ><video id="video0" style="width: 100%"/></a>
+							<a><video id="video0" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
 							<h3><a class="title title-info0"></a></h3>
@@ -172,7 +173,7 @@ $(document).ready(function() {
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
 						<div class="resent-grid-img recommended-grid-img">
-                            <a onclick=ref("video1") ><video id="video1" style="width: 100%"/></a>
+                            <a ><video id="video1" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
 							<h3><a href="single.html" class="title title-info1"></a></h3>
@@ -184,7 +185,7 @@ $(document).ready(function() {
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
 						<div class="resent-grid-img recommended-grid-img">
-                            <a onclick=ref("video2") ><video id="video2" style="width: 100%"/></a>
+                            <a><video id="video2" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
 							<h3><a href="single.html" class="title title-info2"></a></h3>
@@ -203,7 +204,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video3") ><video id="video3" style="width: 100%"/></a>
+                                <a><video id="video3" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title3">Varius sit sed viverra viverra nullam nullam interdum metus</a></h5>
@@ -215,7 +216,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video4") ><video id="video4" style="width: 100%"/></a>
+                                <a ><video id="video4" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title4">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
@@ -227,7 +228,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video5") ><video id="video5" style="width: 100%"/></a>
+                                <a><video id="video5" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title5">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
@@ -239,7 +240,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video6") ><video id="video6" style="width: 100%"/></a>
+                                <a ><video id="video6" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title6">Nullam interdum viverra nullam metus varius sit sed viverra</a></h5>
@@ -254,7 +255,7 @@ $(document).ready(function() {
 					<div class="recommended-grids">
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video7") ><video id="video7" style="width: 100%"/></a>
+                                <a ><video id="video7" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title7">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
@@ -266,7 +267,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video8") ><video id="video8" style="width: 100%"/></a>
+                                <a ><video id="video8" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title8">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
@@ -278,7 +279,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video9") ><video id="video9" style="width: 100%"/></a>
+                                <a ><video id="video9" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title9">Varius sit sed viverra nullam viverra nullam interdum metus</a></h5>
@@ -290,7 +291,7 @@ $(document).ready(function() {
 						</div>
 						<div class="col-md-3 resent-grid recommended-grid">
 							<div class="resent-grid-img recommended-grid-img">
-                                <a onclick=ref("video10") ><video id="video10   " style="width: 100%"/></a>
+                                <a><video id="video10" style="width: 100%"/></a>
 							</div>
 							<div class="resent-grid-info recommended-grid-info video-info-grid">
 								<h5><a href="single.html" class="title10">Nullam interdum metus viverra nullam varius sit sed viverra</a></h5>
