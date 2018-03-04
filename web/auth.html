@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru" >
+
+<head>
+	<meta charset="UTF-8">
+	<title>Авторизация</title>
+	<link rel="stylesheet" href="style/style.css">
+	<link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
+</head>
+
+<body>
+<div class="login">
+	<div class="login-screen">
+		<div class="app-title">
+			<h1>Авторизация</h1>
+		</div>
+
+		<div class="login-form">
+			<div class="control-group" id="auth_result_success" style="display: none; color: green">
+				Успешно
+			</div>
+			<div class="control-group" id="auth_result_fail" style="display: none; color: red">
+				Неверный логин/пароль
+			</div>
+
+			<div class="control-group">
+				<input type="text" class="login-field" value="" placeholder="Логин" id="login-name">
+				<label class="login-field-icon fui-user" for="login-name"></label>
+			</div>
+
+			<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="Пароль (P5...)" id="login-pass">
+				<label class="login-field-icon fui-lock" for="login-pass"></label>
+			</div>
+
+			<div class="control-group">
+				<input type="password" class="login-field" value="" placeholder="Постинг-пароль (GLS6...)" id="login-post-pass">
+				<label class="login-field-icon fui-lock" for="login-post-pass"></label>
+			</div>
+
+			<a class="btn btn-primary btn-large btn-block" href="#" onclick="auth()">Войти</a>
+			<a class="login-link" href="#"
+			   onclick='document.getElementById("easter_egg").style.display = "block";'>Забыли пароль?</a>
+			<br>
+			<div class="control-group" id="easter_egg" style="display: none; text-align:justify;">
+				Первое правило сети Голос: не теряйте свой пароль.<br><br>
+				Второе правило Голос: Не теряйте свой пароль.<br><br>
+				Третье правило Голос: мы не можем восстановить Ваш пароль.<br><br>
+				Четвертое правило: если Вы можете запомнить свой пароль, значит он не безопасен.<br><br>
+				Пятое правило: используйте только сгенерированные случайным образом пароли.<br><br>
+				Шестое правило: Никому не говорите свой пароль.<br><br>
+				Седьмое правило: Всегда надежно храните свой пароль.
+				<!-- <ul>
+        <li>Первое правило сети Голос: не теряйте свой пароль.</li>
+        <li>Второе правило Голос: Не теряйте свой пароль.</li>
+        <li>Третье правило Голос: мы не можем восстановить Ваш пароль.</li>
+        <li>Четвертое правило: если Вы можете запомнить свой пароль, значит он не безопасен.</li>
+        <li>Пятое правило: используйте только сгенерированные случайным образом пароли.</li>
+        <li>Шестое правило: Никому не говорите свой пароль.</li>
+        <li>Седьмое правило: Всегда надежно храните свой пароль.</li>
+      </ul> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="golos.min_global.js"></script>
+<script src="cookies.js"></script>
+<script>
+    // setTimeout('window.location = "index.html"',1000);
+</script>
+<script>
+    function auth(){
+        var login = document.getElementById("login-name").value;
+        var password = document.getElementById("login-pass").value;
+        var post_password = document.getElementById("login-post-pass").value;
+        // bunnyhole
+        // P5JrKAMbYzRdg4wsd3SCrtr5jNKQoPR1jYvc2H9N4FNscz6DdYCC
+        // GLS69gkA3z1J9LtoZ3vameBQSpuEPsfhTjMjFfy27EEaSSabfZWWi
+        var auths = {
+            posting: [[post_password]]
+        };
+        var verifyResult = golos.auth.verify(login, password, auths);
+        console.log('verify', verifyResult);
+        if(verifyResult){
+            document.getElementById("auth_result_success").style.display = "block";
+            document.getElementById("auth_result_fail").style.display = "none";
+            setCookie("login", login, {});
+            setCookie("password", password, {});
+            setCookie("post_password", post_password, {});
+            setTimeout('window.location = "index.html"',1000);
+        } else{
+            document.getElementById("auth_result_success").style.display = "none";
+            document.getElementById("auth_result_fail").style.display = "block";
+        }
+    }
+</script>
+</body>
+
+</html>
