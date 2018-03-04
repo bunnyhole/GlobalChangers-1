@@ -35,11 +35,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		limit: 18
 	};
 
+function transfer(result, video_url) {
+  return function() {
+        console.log(result.title)
+        setCookie("video_name", result.title);
+        setCookie("video", video_url);
+        window.location.replace("single.html");    
+  }
+}
 
 
 	golos.api.getDiscussionsByCreated(query, function(err, result) {
 		if (!err) {
 			for (var i = 0; i < 18; ++i) {
+        console.log(result.length)
 				var ipfs_id = result[i].body;
 				//console.log(result[i]);
 				let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
@@ -50,11 +59,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				$("#video" + i)[0].src = video_url;
 				$('#video' + i)[0].loop = 'loop';
 				$('#video' + i)[0].muted = 'muted';
+              $("#video" + i)[0].addEventListener("click", transfer(result[i], video_url), false);
+
 			}
 		} else {
 			console.log(err);
 		}
 	});
+
+$(document).ready(function() {
+  if (getCookie("login")) {
+      $(".auth-link").text("Выход");
+      $(".auth-link").attr('href', '#');
+      $(".signin").click(function () {
+        deleteCookie("login");
+        deleteCookie("password");
+        deleteCookie("post_password");
+        location.reload();
+      });
+  } else {
+    $(".auth-link").text("Вход");
+  }
+});
+
 
 </script>
 
@@ -86,7 +113,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <a href="upload.html">Загрузить</a>
 				  </div>
 				  <div class="signin">
-					  <a href="auth.html">Войти</a>
+					  <a class="auth-link" href="auth.html">Войти</a>
 				  </div>
 				  <div class="clearfix"> </div>
 			  </div>
