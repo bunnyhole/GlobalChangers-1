@@ -1,13 +1,7 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>My Play a Entertainment Category Flat Bootstrap Responsive Website Template | single :: w3layouts</title>
+<title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -35,10 +29,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <script>
 	$(document).ready(function() {
-        console.log($('#HTML_element'))
+        var a = getCookie("video_name");
+        console.log($("#h3_title"));
+        $("#h3_title").html(a);
+        console.log(getCookie("video_name"));
         $("#HTML_element").html('<source src="' + getCookie("video") + '" type="video/mp4"></source>');
         $('#HTML_element')[0].play()
+
+        $('#h3_title').text(getCookie("video_name"));
+        //deleteCookie("video_name");
+        //deleteCookie("video");
     });
+$(document).ready(function() {
+  if (getCookie("login")) {
+      $(".auth-link").text("Выход");
+      $(".auth-link").attr('href', '#');
+      $(".signin").click(function () {
+        deleteCookie("login");
+        deleteCookie("password");
+        deleteCookie("post_password");
+        location.reload();
+      });
+  } else {
+    $(".auth-link").text("Вход");
+  }
+});
 
 </script>
 
@@ -63,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					  <a href="upload.html">Загрузить</a>
 				  </div>
 				  <div class="signin">
-					  <a href="auth.html">Войти</a>
+					  <a class="auth-link" href="auth.html"></a>
 				  </div>
 				  <div class="clearfix"> </div>
 			  </div>
@@ -92,7 +107,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-sm-10 single-left">
 					<div class="song">
 						<div class="song-info">
-							<h3>Etiam molestie nisl eget consequat pharetra</h3>	
+							<h3 id="h3_title"></h3>
 					</div>
 						<div class="video-grid">
 							<video controls="controls" id="HTML_element"  style="width: 100%">
@@ -119,16 +134,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="load_more">	
 								<ul id="myList">
 									<li>
-										<h4>Опубликовано 3 Мар</h4>
+										<h4>Опубликовано 4 Мар</h4>
 										<ul>
-											<img src="images/like.png">
-											<img src="images/9.png">
 										</ul>
-										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
-									</li>
-									<li>
-										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
-										<p>Nullam fringilla sagittis tortor ut rhoncus. Nam vel ultricies erat, vel sodales leo. Maecenas pellentesque, est suscipit laoreet tincidunt, ipsum tortor vestibulum leo, ac dignissim diam velit id tellus. Morbi luctus velit quis semper egestas. Nam condimentum sem eget ex iaculis bibendum. Nam tortor felis, commodo faucibus sollicitudin ac, luctus a turpis. Donec congue pretium nisl, sed fringilla tellus tempus in.</p>
 										<div class="load-grids">
 											<div class="load-grid">
 												<p>Category</p>
@@ -269,10 +277,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another link</a></li>
 		</ul>
 	</div>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
   </body>
 </html>
