@@ -10,8 +10,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>Загрузить</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap -->
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
@@ -32,14 +30,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
 crossorigin="anonymous"></script>
 
-<script>
+<script
 src="https://code.jquery.com/jquery-3.3.1.min.js"
 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 crossorigin="anonymous"></script>
 
 
 <script src="golos.min_test.js"></script>
-
+<script src="cookies.js"></script>
   <script>
     golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
     golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
@@ -56,29 +54,31 @@ crossorigin="anonymous"></script>
           let url = `https://ipfs.io/ipfs/${result[0].hash}`
           console.log(`Url --> ${url}`)
 
-          var login = "golos2";
-          var password = "qwerty12345";
-          var post_password = 'GLS6819HPP87DChNud8CscFMN5et1LidR5Vb1VxWQicDBkcvs3rix';
+          var login = getCookie("login");
+          var password = getCookie("password");
+          var post_password = getCookie("post_password");
+          console.log(login, password, post_password);
           
           var auths = {
             posting: [[post_password]]
+
           };
           var verifyResult = golos.auth.verify(login, password, auths);
           console.log('verify', verifyResult);
 
-                    var wif = "5JSmC197rbygTgKVFnpyB62kBWi8cBt6fUx9J7EyErKxdXhLYea";
+          var wif = password;
           var parentAuthor = '';
           var parentPermlink = 'videotest';
-          var author = 'vgolos2';
-          var permlink = 'test-url-test-url';
-          var title = 'test';
-          var body = 'test2';
+          var author = login;
+          var permlink = result[0].hash.toLowerCase();
+          var title = $("#video_name").val();
+          var body = result[0].hash;
           var jsonMetadata = '{}';
   
 
           golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function(err, result) {
             if (!err) {
-              window.location.replace("/getvideos");
+              window.location.replace("index");
             } else {
               console.log(err);
             }
@@ -128,20 +128,14 @@ crossorigin="anonymous"></script>
 				<div class="upload-grids">
 					<div class="upload-right">
 						<div class="upload-file">
-                <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-
-							<div class="services-icon">
-								<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
-							</div>
-                <input id="video_file" type="file" value="Choose file..">
-            						</div>
-						<div class="upload-info">
-							<h5>Выбери файлы для загрузки</h5>
-							<span>или</span>
-							<p>Перетащите их сюда</p>
+              <div class="upload-info">
+                <h5>Заголовок видео:</h5></br>
+                <input style = "font-size: 2em; width: 70%; margin-bottom: 2em" id="video_name" type="text">
+                <h5>Тэги:</h5></br>
+                <input style = "font-size: 2em; width: 70%; margin-bottom: 2em" id="video_tags" type="text">
+                <h5>Файл для загрузки:</h5>
+                <input id="video_file" type="file" value="Choose file.." style="display:block; position:relative; opacity:1; top:auto; left:40%; width:auto; font-size:1em; margin-top:1em">
+              <button onclick=upload() style="background: #266fb7; color: #FFF; font-size: 14px; border-radius: 3px; font-family: 'Open Sans', sans-serif; margin-top: 2em"> Загрузить видео </button>
 						</div>
 					</div>
 				</div>
