@@ -33,13 +33,6 @@ crossorigin="anonymous"></script>
 <script src="cookies.js"></script>
 
 <script>
-$("auth_link.text").text("Выхоафываыфваывфафываыд");
-if (getCookie("login")) {
-  $("auth_link.text").text("Выход");
-} else {
-  $("auth_link.text").text("Вход");
-}
-
 var query = {
   select_tags: ['videotest'],
   limit: 3,
@@ -64,6 +57,12 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
   } else {
     console.log(err);
   }
+  if (getCookie("login")) {
+    $("#auth_link").text("Выход");
+  } else {
+    $("#auth_link").text("Вход");
+  }
+
 });
 
 query.limit = 8;
