@@ -837,6 +837,7 @@ select.form-control.bfh-countries:hover {
 .video-grid iframe {
     border: none;
     height: 376px;
+    width: 125%;
 }
 .share h5{
     margin: 0;
@@ -961,6 +962,7 @@ select.form-control.bfh-countries:hover {
 	font-size: 13px;
     color: #9E9E9E;
     margin: 0;
+    margin-bottom: 670px;
     line-height: 1.8em;
 }
 .recommended-info p.history-text span{
@@ -1877,7 +1879,7 @@ background: url(../images/social.png) no-repeat 0px 0px;
 		top: 86% !important;
 	}
 	.show-video-grid {
-		width:33.33% !important;
+		width:200% !important;
 		margin-bottom: 2em;
 	}
 	.show-time {
@@ -2087,7 +2089,7 @@ background: url(../images/social.png) no-repeat 0px 0px;
 	}
 	.single-left {
 		float: left;
-		width: 70%;
+		width: 80%;
 	}
 	.single-right {
 		padding: 2em;
@@ -2448,7 +2450,7 @@ background: url(../images/social.png) no-repeat 0px 0px;
 	}
 	.single-left {
 		float: none;
-		width: 100%;
+		width: 200%;
 	}
 	.single-right {
 		float: none;
