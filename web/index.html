@@ -1,9 +1,3 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -39,6 +33,13 @@ crossorigin="anonymous"></script>
 <script src="cookies.js"></script>
 
 <script>
+$("auth_link.text").text("Выхоафываыфваывфафываыд");
+if (getCookie("login")) {
+  $("auth_link.text").text("Выход");
+} else {
+  $("auth_link.text").text("Вход");
+}
+
 var query = {
   select_tags: ['videotest'],
   limit: 3,
@@ -91,14 +92,6 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 });
 </script>
 
-<script>
-  var auth_link = $('#auth_link');
-  if (getCookie("login")) {
-    auth_div.children()[0].text("");
-  } else {
-    auth_div.children()[0].text("Вход");
-  }
-</script>
 </head>
   <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -118,7 +111,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 					<a href="upload.html">Загрузить</a>
 				</div>
 				<div class="signin">
-					<a href="auth.html" id="auth_link">Войти</a>
+					<a href="auth.html" id="auth_link"></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
