@@ -94,7 +94,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 <script>
   var auth_link = $('#auth_link');
   if (getCookie("login")) {
-    auth_div.children()[0].text("Выход");
+    auth_div.children()[0].text("");
   } else {
     auth_div.children()[0].text("Вход");
   }
