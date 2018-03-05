@@ -59,7 +59,7 @@ golos.api.getDiscussionsByHot(query, function(err, result) {
       $(".author" + i).text(result[i].author);
       $(".author" + i).attr('href', 'http://golos.io/@' + result[i].author);
       $(".author" + i).css('font-size', '1.5em');
-      $(".views-info" + i).text(result[i].curator_payout_value);
+      $(".views-info" + i).text(result[i].pending_payout_value);
       $(".views-info" + i).css('font-size', '3em');
       $("#video" + i)[0].src = video_url;
       $('#video' + i)[0].loop = 'loop';
@@ -88,7 +88,7 @@ golos.api.getDiscussionsByTrending(query, function(err, result) {
       $(".title" + (i + 3)).text(result[i].title);
       $(".author" + (i + 3)).text(result[i].author);
       $(".author" + (i + 3)).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
-      $(".views-info" + (i + 3)).text(result[i].curator_payout_value);
+      $(".views-info" + (i + 3)).text(result[i].pending_payout_value);
       $("#video" + (i + 3))[0].src = video_url;
       $('#video' + (i + 3))[0].loop = 'loop';
       $('#video' + (i + 3))[0].muted = 'muted';
