@@ -37,7 +37,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $('#HTML_element')[0].play()
 
         $('#h3_title').text(getCookie("video_name"));
-        //deleteCookie("video_name");
+        //deleteCookie("video_name")
+	var author = getCookie("author");
+	var permlink = getCookie("video_permlink").toLowerCase();
+        
+	golos.api.getActiveVotes(author, permlink, function(err, result) {
+		  console.log(result);
+		  $("#num_votes").text(result.length);
+	});
+;
         //deleteCookie("video");
     });
 $(document).ready(function() {
@@ -150,8 +158,8 @@ $(document).ready(function() {
 							<div class="all-comments-info">
 								<div class="all-comments-buttons">
 									<ul>
-										<li><a href="#" class="top" onclick="vote()">Лайк</a></li>
-										<li><p id="num_votes">0</p></li>
+									<li><a text-size="2em";href="#" class="top" id="upvote-button" onclick="vote()">^</a></li>
+										<li><h3 id="num_votes">0</h3></li>
 									</ul>
 								</div>
 								<script>
@@ -168,7 +176,7 @@ $(document).ready(function() {
 										 * @param {String} jsonMetadata - meta-data of the post (images etc.)
 										*/
 										golos.config.set('websocket', 'wss://ws.golos.io');
-										golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+									//	golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 										
 										var login = getCookie("login");
 										var password = getCookie("password");
@@ -185,20 +193,20 @@ $(document).ready(function() {
 										//author = "vgolos2";
 										
 										
-										var wif = $.trim(priv_post_password);
+										var wif = priv_post_password;
 										var voter = login;
 										var permlink = getCookie("video_permlink").toLowerCase();
 
-										var weight = 1;
+										var weight = 10000;
 										console.log(wif, voter, author, permlink, weight);
 										golos.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-										  //console.log(err, result);
+										  console.log(err, result);
+											golos.api.getActiveVotes(author, permlink, function(err, result) {
+											  $("#upvote-button").css("background-color", '#337ab7');
+											  $("#num_votes").text(result.length);
+											});
 										});
 										
-										var num_votes = golos.api.getActiveVotes(author, permlink, function(err, result) {
-										  console.log("golos.api.getActiveVotes: ", err, result);
-										});
-										$("#num_votes").text("146");
 										//console.log("num_votes: ", num_votes);
 									}
 								</script>
