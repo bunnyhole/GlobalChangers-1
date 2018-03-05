@@ -1,12 +1,9 @@
-<!DOCTYPE HTML>
 <html>
 <head>
-<title></title>
+<title>ВГОЛОС</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script> -->
 <!-- bootstrap -->
 <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' media="all" />
 <!-- //bootstrap -->
@@ -14,32 +11,95 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- Custom Theme files -->
 <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
 <script src="js/jquery-1.11.1.min.js"></script>
-!--start-smoth-scrolling-->
+<!--start-smoth-scrolling-->
 <!-- fonts -->
 <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
 <!-- //fonts -->
-	<script src="api/golos.min_global.js"></script>
-	<script
-			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			crossorigin="anonymous"></script>
+<link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
 
-	<script src="scripts/cookies.js">
-	</script>
+<script src="https://wzrd.in/standalone/buffer"></script>
+<script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
+integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
+crossorigin="anonymous"></script>
+
+<script src="api/golos.min_global.js"></script>
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+
+<script src="scripts/cookies.js"></script>
 
 <script>
-	$(document).ready(function() {
-        var a = getCookie("video_name");
-        console.log($("#h3_title"));
-        $("#h3_title").html(a);
-        console.log(getCookie("video"));
-        $("#HTML_element").html('<source src="' + getCookie("video") + '" type="video/mp4"></source>');
-        $('#HTML_element')[0].play()
+var query = {
+  select_tags: ['videotest'],
+  limit: 3,
+};
 
-        $('#h3_title').text(getCookie("video_name"));
-        //deleteCookie("video_name");
-        //deleteCookie("video");
-    });
+function transfer(result, video_permlink, video_url) {
+  return function() {
+        console.log(result.title)
+        setCookie("video_name", result.title);
+        setCookie("video_permlink", video_permlink.toLowerCase());
+		setCookie("video", video_url);
+		setCookie("author", result.author);
+        window.location.replace("single.html");    
+  }
+}
+
+golos.api.getDiscussionsByCreated(query, function(err, result) {
+  if (!err) {
+    for (var i = 0; i < 3; ++i) {
+      var ipfs_id = result[i].body;
+      //console.log(result[i]);
+      var video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+      $(".title-info" + i).text(result[i].title);
+      $(".author" + i).text(result[i].author);
+      $(".author" + i).attr('href', 'http://golos.io/@' + result[i].author);
+      $(".views-info" + i).text(result[i].curator_payout_value);
+      $("#video" + i)[0].src = video_url;
+      $('#video' + i)[0].loop = 'loop';
+      $('#video' + i)[0].muted = 'muted';
+      $("#video" + i)[0].play();
+      $("#video" + i)[0].addEventListener("click", transfer(result[i], ipfs_id, video_url), false);
+    }
+  } else {
+    console.log(err);
+  }
+  if (getCookie("login")) {
+    $("#auth_link").text("Выход");
+  } else {
+    $("#auth_link").text("Вход");
+  }
+
+});
+
+query.limit = 8;
+golos.api.getDiscussionsByCreated(query, function(err, result) {
+  if (!err) {
+    for (var i = 0; i < 8; ++i) {
+      var ipfs_id = result[i].body;
+      console.log(result[i]);
+      var video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+      $(".title" + (i + 3)).text(result[i].title);
+      $(".author" + (i + 3)).text(result[i].author);
+      $(".author" + (i + 3)).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
+      $(".views-info" + (i + 3)).text(result[i].curator_payout_value);
+      $("#video" + (i + 3))[0].src = video_url;
+      $('#video' + (i + 3))[0].loop = 'loop';
+      $('#video' + (i + 3))[0].muted = 'muted';
+      $("#video" + (i + 3))[0].addEventListener("click", transfer(result[i], ipfs_id, video_url), false);
+      $('#video' + (i + 3)).hover(function() {
+        $(this)[0].play();
+      }, function() {
+        $(this)[0].pause();
+      });
+    }
+  } else {
+    console.log(err);
+  }
+});
 $(document).ready(function() {
   if (getCookie("login")) {
       $(".auth-link").text("Выход");
@@ -54,275 +114,215 @@ $(document).ready(function() {
     $(".auth-link").text("Вход");
   }
 });
-
 </script>
 
-	<link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
+
 </head>
   <body>
-
-  <nav class="navbar navbar-inverse navbar-fixed-top">
-	  <div class="container-fluid">
-		  <div class="navbar-header">
-			  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-				  <span class="sr-only">Toggle navigation</span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-				  <span class="icon-bar"></span>
-			  </button>
-			  <a class="navbar-brand" href="index.html"><h1><img src="images/logo.png" alt="" /></h1></a>
-		  </div>
-		  <div id="navbar" class="navbar-collapse collapse">
-			  <div class="header-top-right">
-				  <div class="file">
-					  <a href="upload.html">Загрузить</a>
-				  </div>
-				  <div class="signin">
-					  <a class="auth-link" href="auth.html"></a>
-				  </div>
-				  <div class="clearfix"> </div>
-			  </div>
-		  </div>
-		  <div class="clearfix"> </div>
-	  </div>
-  </nav>
-  <div class="col-sm-3 col-md-2 sidebar">
-	  <div class="top-navigation">
-		  <div class="t-menu">MENU</div>
-		  <div class="t-img">
-			  <img src="images/lines.png" alt="" />
-		  </div>
-		  <div class="clearfix"> </div>
-	  </div>
-	  <div class="drop-navigation drop-navigation">
-		  <ul class="nav nav-sidebar">
-			  <li><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Главная</a></li>
-			  <li><a href="lenta.html" class="sub-icon"><span class="glyphicon glyphicon-home glyphicon-hourglass" aria-hidden="true"></span>Лента</a></li>
-			  <li><a href="news.html" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>Новое</a></li>
-		  </ul>
-	  </div>
-  </div>
-        <div class="col-sm-1 col-sm-offset-1 col-md-10 col-md-offset-3 main">
-			<div class="show-top-grids">
-				<div class="col-sm-10 single-left">
-					<div class="song">
-						<div class="song-info">
-							<h3 id="h3_title"></h3>
-					</div>
-						<div class="video-grid">
-							<video controls="controls" id="HTML_element"  style="width: 100%">
-							</video>
-						</div>
-					</div>
-					<div class="clearfix"> </div>
-					<div class="published">
-							<script>
-								$(document).ready(function () {
-									size_li = $("#myList li").size();
-									x=1;
-									$('#myList li:lt('+x+')').show();
-									$('#loadMore').click(function () {
-										x= (x+1 <= size_li) ? x+1 : size_li;
-										$('#myList li:lt('+x+')').show();
-									});
-									$('#showLess').click(function () {
-										x=(x-1<0) ? 1 : x-1;
-										$('#myList li').not(':lt('+x+')').hide();
-									});
-								});
-							</script>
-							<div class="load_more">	
-								<ul id="myList">
-									<li>
-										<h4>Опубликовано 4 Мар</h4>
-										<div class="load-grids">
-											<div class="load-grid">
-												<p>Category</p>
-											</div>
-											<div class="load-grid">
-												<a href="movies.html">Entertainment</a>
-											</div>
-											<div class="clearfix"> </div>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div class="all-comments-info">
-								<div class="all-comments-buttons">
-									<ul>
-										<li><a href="#" class="top" onclick="vote()">Лайк</a></li>
-										<li><p id="num_votes">0</p></li>
-									</ul>
-								</div>
-								<script>
-									function vote() {
-										/**
-										 * comment() add a comment
-										 * @param {Base58} wif - private posting key
-										 * @param {String} parentAuthor - for add a comment, author of the post
-										 * @param {String} parentPermlink - for add a comment, url-address of the post
-										 * @param {String} author - author of the comment
-										 * @param {String} permlink - unique url-address of the comment
-										 * @param {String} title - for create a comment, empty field
-										 * @param {String} body - text of the comment
-										 * @param {String} jsonMetadata - meta-data of the post (images etc.)
-										*/
-										golos.config.set('websocket', 'wss://ws.golos.io');
-										golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
-										
-										var login = getCookie("login");
-										var password = getCookie("password");
-										var post_password = getCookie("post_password");
-										var priv_post_password = getCookie("priv_post_password");
-										
-										var auths = {
-										  posting: [[post_password]]
-
-										};
-										var verifyResult = golos.auth.verify(login, password, auths);
-										
-										var author = getCookie("author");
-										//author = "vgolos2";
-										
-										
-										var wif = $.trim(priv_post_password);
-										var voter = login;
-										var permlink = getCookie("video_permlink").toLowerCase();
-
-										var weight = 1;
-										console.log(wif, voter, author, permlink, weight);
-										golos.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-										  //console.log(err, result);
-										});
-										
-										var num_votes = golos.api.getActiveVotes(author, permlink, function(err, result) {
-										  console.log("golos.api.getActiveVotes: ", err, result);
-										});
-										$("#num_votes").text("146");
-										//console.log("num_votes: ", num_votes);
-									}
-								</script>
-							</div>
-					</div>
-					<div class="all-comments">
-						<div class="all-comments-info">
-							<a href="#">All Comments (8,657)</a>
-							<div class="all-comments-buttons">
-								<ul>
-									<li><a href="#" class="top">Top Comments</a></li>
-									<li><a href="#" class="top newest">Newest First</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="media-grids">
-							<div class="media">
-								<h5>Tom Brown</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-							<div class="media">
-								<h5>Mark Johnson</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-							<div class="media">
-								<h5>Steven Smith</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-							<div class="media">
-								<h5>Marry Johne</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-							<div class="media">
-								<h5>Mark Johnson</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-							<div class="media">
-								<h5>Mark Johnson</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-							<div class="media">
-								<h5>Peter Johnson</h5>
-								<div class="media-left">
-									<a href="#">
-										
-									</a>
-								</div>
-								<div class="media-body">
-									<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-									<span>View all posts by :<a href="#"> Admin </a></span>
-								</div>
-							</div>
-						</div>
-					</div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><h1><img src="images/logo.png" alt="" /></h1></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+			<div class="header-top-right">
+				<div class="file">
+					<a href="upload.html">Загрузить</a>
+				</div>
+				<div class="signin">
+					<a href="auth.html" class="auth-link"></a>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
+        </div>
+		<div class="clearfix"> </div>
+      </div>
+    </nav>
+
+        <div class="col-sm-3 col-md-2 sidebar">
+
+				<div class="drop-navigation drop-navigation">
+				  <ul class="nav nav-sidebar">
+					<li class="active"><a href="index.html" class="home-icon"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Главная</a></li>
+                      <li><a href="lenta.html" class="sub-icon"><span class="glyphicon glyphicon-home glyphicon-hourglass" aria-hidden="true"></span>Лента</a></li>
+                      <li><a href="news.html" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>Новое</a></li>
+				  </ul>
+				</div>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<div class="main-grids">
+				<div class="top-grids">
+					<div class="recommended-info">
+						<h3>Популярное</h3>
+					</div>
+					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+						<div class="resent-grid-img recommended-grid-img">
+							<a><video id="video0" style="width: 100%"/></a>
+						</div>
+						<div class="resent-grid-info recommended-grid-info">
+							<h3><a class="title title-info0"></a></h3>
+							<ul>
+								<li><p class="author author-info"><a href="#" class="author0"></a></p></li>
+								<li class="right-list"><p class="views views-info0"></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+						<div class="resent-grid-img recommended-grid-img">
+                            <a ><video id="video1" style="width: 100%"/></a>
+						</div>
+						<div class="resent-grid-info recommended-grid-info">
+							<h3><a href="single.html" class="title title-info1"></a></h3>
+							<ul>
+								<li><p class="author author-info"><a href="#" class="author1"></a></p></li>
+								<li class="right-list"><p class="views views-info1"></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
+						<div class="resent-grid-img recommended-grid-img">
+                            <a><video id="video2" style="width: 100%"/></a>
+						</div>
+						<div class="resent-grid-info recommended-grid-info">
+							<h3><a href="single.html" class="title title-info2"></a></h3>
+							<ul>
+								<li><p class="author author-info"><a href="#" class="author2"></a></p></li>
+								<li class="right-list"><p class="views views-info2"></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="recommended">
+					<div class="recommended-grids">
+						<div class="recommended-info">
+							<h3>Актуальное</h3>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a><video id="video3" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title3"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author3"></a></p></li>
+									<li class="right-list"><p class="views views-info3"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a ><video id="video4" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title4"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author4"></a></p></li>
+									<li class="right-list"><p class="views views-info4"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a><video id="video5" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title5"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author5"></a></p></li>
+									<li class="right-list"><p class="views views-info5"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a ><video id="video6" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title6"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author6"></a></p></li>
+									<li class="right-list"><p class="views views-info6"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+					<div class="recommended-grids">
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a ><video id="video7" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title7"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author7"></a></p></li>
+									<li class="right-list"><p class="views views-info7"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a ><video id="video8" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title8"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author8"></a></p></li>
+									<li class="right-list"><p class="views views-info8"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a ><video id="video9" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title9"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author9"></a></p></li>
+									<li class="right-list"><p class="views views-info9">s</p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-md-3 resent-grid recommended-grid">
+							<div class="resent-grid-img recommended-grid-img">
+                                <a><video id="video10" style="width: 100%"/></a>
+							</div>
+							<div class="resent-grid-info recommended-grid-info video-info-grid">
+								<h5><a href="single.html" class="title10"></a></h5>
+								<ul>
+									<li><p class="author author-info"><a href="#" class="author10"></a></p></li>
+									<li class="right-list"><p class="views views-info10"></p></li>
+								</ul>
+							</div>
+						</div>
+						<div class="clearfix"> </div>
+					</div>
+				</div>
+			</div>
+			<!-- footer -->
+			<div class="footer" align="bottom">
+				<div class="footer-grids">
+					<div class="footer-top">
+						<div class="footer-top-nav">
+							<ul>
+								<li><a href="about.html">О нас</a></li>
+								<li><a href="creators.html">Пользователям</a></li>
+								<li><a href="https://developers.golos.io/">Разработчикам</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- //footer -->
 		</div>
-  <div class="clearfix"> </div>
-  <!-- //footer -->
-  <!-- footer -->
-  <div class="col-sm-1 col-sm-offset-1 col-md-10 col-md-offset-2 main">
-		  <div class="footer">
-			  <div class="footer-grids">
-				  <div class="footer-top">
-					  <div class="footer-top-nav">
-						  <ul>
-							  <li><a href="about.html">О нас</a></li>
-							  <li><a href="creators.html">Пользователям</a></li>
-							  <li><a href="https://developers.golos.io/">Разработчикам</a></li>
-						  </ul>
-					  </div>
-				  </div>
-			  </div>
-		  </div>
-  </div>
 		<div class="clearfix"> </div>
 	<div class="drop-menu">
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu4">
