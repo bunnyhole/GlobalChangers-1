@@ -37,11 +37,13 @@ var query = {
   limit: 3,
 };
 
-function transfer(result, video_url) {
+function transfer(result, video_permlink, video_url) {
   return function() {
         console.log(result.title)
         setCookie("video_name", result.title);
-        setCookie("video", video_url);
+        setCookie("video_permlink", video_permlink.toLowerCase());
+		setCookie("video", video_url);
+		setCookie("author", result.author);
         window.location.replace("single.html");    
   }
 }
@@ -51,7 +53,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
     for (var i = 0; i < 3; ++i) {
       var ipfs_id = result[i].body;
       //console.log(result[i]);
-      let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+      var video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
       $(".title-info" + i).text(result[i].title);
       $(".author" + i).text(result[i].author);
       $(".author" + i).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
@@ -60,7 +62,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
       $('#video' + i)[0].loop = 'loop';
       $('#video' + i)[0].muted = 'muted';
       $("#video" + i)[0].play();
-      $("#video" + i)[0].addEventListener("click", transfer(result[i], video_url), false);
+      $("#video" + i)[0].addEventListener("click", transfer(result[i], ipfs_id, video_url), false);
     }
   } else {
     console.log(err);
@@ -79,7 +81,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
     for (var i = 0; i < 8; ++i) {
       var ipfs_id = result[i].body;
       console.log(result[i]);
-      let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
+      var video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
       $(".title" + (i + 3)).text(result[i].title);
       $(".author" + (i + 3)).text(result[i].author);
       $(".author" + (i + 3)).attr('href', 'http://testnet3.golos.io/@' + result[i].author);
@@ -87,7 +89,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
       $("#video" + (i + 3))[0].src = video_url;
       $('#video' + (i + 3))[0].loop = 'loop';
       $('#video' + (i + 3))[0].muted = 'muted';
-      $("#video" + (i + 3))[0].addEventListener("click", transfer(result[i], video_url), false);
+      $("#video" + (i + 3))[0].addEventListener("click", transfer(result[i], ipfs_id, video_url), false);
       $('#video' + (i + 3)).hover(function() {
         $(this)[0].play();
       }, function() {
