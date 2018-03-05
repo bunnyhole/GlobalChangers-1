@@ -227,10 +227,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<span>View all posts by :<a href="#"> Admin </a></span>
 						</div>
 					</div>
-					<div class="media">
-						<h5>Mark Johnson</h5>
-						<div class="media-left">
-							<a href="#">
+					<div class="clearfix"> </div>
+					<div class="published">
+							<script>
+								$(document).ready(function () {
+									size_li = $("#myList li").size();
+									x=1;
+									$('#myList li:lt('+x+')').show();
+									$('#loadMore').click(function () {
+										x= (x+1 <= size_li) ? x+1 : size_li;
+										$('#myList li:lt('+x+')').show();
+									});
+									$('#showLess').click(function () {
+										x=(x-1<0) ? 1 : x-1;
+										$('#myList li').not(':lt('+x+')').hide();
+									});
+								});
+							</script>
+							<div class="load_more">	
+								<ul id="myList">
+									<li>
+										<h4>Опубликовано 4 Мар</h4>
+										<div class="load-grids">
+											<div class="load-grid">
+												<p>Category</p>
+											</div>
+											<div class="load-grid">
+												<a href="movies.html">Entertainment</a>
+											</div>
+											<div class="clearfix"> </div>
+										</div>
+									</li>
+								</ul>
+							</div>
+							<div class="all-comments-info">
+								<div class="all-comments-buttons">
+									<ul>
+										<li><a href="#" class="top" onclick="vote()">Лайк</a></li>
+										<li><p id="num_votes">0</p></li>
+									</ul>
+								</div>
+								<script>
+									function vote() {
+										/**
+										 * comment() add a comment
+										 * @param {Base58} wif - private posting key
+										 * @param {String} parentAuthor - for add a comment, author of the post
+										 * @param {String} parentPermlink - for add a comment, url-address of the post
+										 * @param {String} author - author of the comment
+										 * @param {String} permlink - unique url-address of the comment
+										 * @param {String} title - for create a comment, empty field
+										 * @param {String} body - text of the comment
+										 * @param {String} jsonMetadata - meta-data of the post (images etc.)
+										*/
+										golos.config.set('websocket', 'wss://ws.golos.io');
+										golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+										
+										var login = getCookie("login");
+										var password = getCookie("password");
+										var post_password = getCookie("post_password");
+										var priv_post_password = getCookie("priv_post_password");
+										
+										var auths = {
+										  posting: [[post_password]]
 
 							</a>
 						</div>
