@@ -34,9 +34,15 @@
 			</div>
 
 			<div class="control-group">
-				<input type="password" class="login-field" value="" placeholder="Постинг-пароль (GLS6...)" id="login-post-pass">
+				<input type="password" class="login-field" value="" placeholder="Public-Постинг-пароль (GLS...)" id="login-post-pass">
 				<label class="login-field-icon fui-lock" for="login-post-pass"></label>
 			</div>
+
+                        <div class="control-group">
+                                <input type="password" class="login-field" value="" placeholder="Private-Постинг-пароль" id="login-priv-post-pass">
+                                <label class="login-field-icon fui-lock" for="login-priv-post-pass"></label>
+                        </div>
+
 
 			<a class="btn btn-primary btn-large btn-block" href="#" onclick="auth()">Войти</a>
 			<a class="login-link" href="#"
@@ -77,13 +83,14 @@
         var login = document.getElementById("login-name").value;
         var password = document.getElementById("login-pass").value;
         var post_password = document.getElementById("login-post-pass").value;
+        var priv_post_password = document.getElementById("login-priv-post-pass").value;
         // bunnyhole
         // P5JrKAMbYzRdg4wsd3SCrtr5jNKQoPR1jYvc2H9N4FNscz6DdYCC
 	      // GLS69gkA3z1J9LtoZ3vameBQSpuEPsfhTjMjFfy27EEaSSabfZWWi
         var auths = {
             posting: [[post_password]]
         };
-        console.log(login, password, post_password);
+        console.log(login, password, post_password, priv_post_password);
 
         var verifyResult = golos.auth.verify(login, password, auths);
         console.log('verify', verifyResult);
@@ -93,6 +100,7 @@
             setCookie("login", login, {});
             setCookie("password", password, {});
             setCookie("post_password", post_password, {});
+            setCookie("priv_post_password", priv_post_password, {});
             setTimeout('window.location = "index.html"',1000);
         } else{
             document.getElementById("auth_result_success").style.display = "none";

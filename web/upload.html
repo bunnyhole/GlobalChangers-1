@@ -51,7 +51,8 @@ crossorigin="anonymous"></script>
           var login = getCookie("login");
           var password = getCookie("password");
           var post_password = getCookie("post_password");
-          console.log(login, password, post_password);
+          var priv_post_password = getCookie("priv_post_password");
+          console.log(login, password, post_password, priv_post_password);
           
           var auths = {
             posting: [[post_password]]
@@ -60,7 +61,7 @@ crossorigin="anonymous"></script>
           var verifyResult = golos.auth.verify(login, password, auths);
           console.log('verify', verifyResult);
 
-          var wif = "5KbcarnoXZ46e7cmjxSGMhJe3BnMP7JJ5ShUFEGDgjHYxaDBHqy";
+          var wif = priv_post_password;
           var parentAuthor = '';
           var parentPermlink = 'videotest';
           var author = login;
@@ -91,6 +92,7 @@ $(document).ready(function() {
         deleteCookie("login");
         deleteCookie("password");
         deleteCookie("post_password");
+        deleteCookie("priv_post_password");
         location.reload();
       });
   } else {
