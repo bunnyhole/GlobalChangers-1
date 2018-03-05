@@ -3,6 +3,7 @@
 <head>
 <title></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/png" href="images/favicon_circle.png">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
@@ -116,6 +117,72 @@ $(document).ready(function() {
 					</div>
 					<div class="clearfix"> </div>
 					<div class="published">
+						<div class="all-comments-info">
+							<div class="all-comments-buttons">
+								<ul>
+									<li><a href="#" class="top" onclick="vote()">Лайк</a></li>
+									<li><p id="num_votes">0</p></li>
+								</ul>
+							</div>
+							<script>
+                                function vote() {
+                                    /**
+                                     * comment() add a comment
+                                     * @param {Base58} wif - private posting key
+                                     * @param {String} parentAuthor - for add a comment, author of the post
+                                     * @param {String} parentPermlink - for add a comment, url-address of the post
+                                     * @param {String} author - author of the comment
+                                     * @param {String} permlink - unique url-address of the comment
+                                     * @param {String} title - for create a comment, empty field
+                                     * @param {String} body - text of the comment
+                                     * @param {String} jsonMetadata - meta-data of the post (images etc.)
+                                     */
+                                    golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
+                                    golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+
+                                    var login = getCookie("login");
+                                    var password = getCookie("password");
+                                    var post_password = getCookie("post_password");
+                                    var priv_post_password = getCookie("priv_post_password");
+
+                                    var auths = {
+                                        posting: [[post_password]]
+
+                                    };
+                                    var verifyResult = golos.auth.verify(login, password, auths);
+
+                                    var author = getCookie("author");
+                                    //author = "vgolos2";
+
+
+                                    var wif = $.trim(priv_post_password);
+                                    var voter = login;
+                                    var permlink = getCookie("video_permlink").toLowerCase();
+
+                                    var weight = 1;
+                                    console.log(wif, voter, author, permlink, weight);
+                                    golos.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+                                        //console.log(err, result);
+                                    });
+
+                                    var num_votes = golos.api.getActiveVotes(author, permlink, function(err, result) {
+                                        console.log("golos.api.getActiveVotes: ", err, result);
+                                    });
+                                    $("#num_votes").text("146");
+                                    //console.log("num_votes: ", num_votes);
+                                }
+							</script>
+						</div>
+					</div>
+
+							<div class="box">
+								<form>
+									<textarea placeholder="Message" required=" "></textarea>
+									<input type="submit" value="Отправить">
+									<div class="clearfix"> </div>
+								</form>
+							</div>
+
 							<script>
 								$(document).ready(function () {
 									size_li = $("#myList li").size();
@@ -131,79 +198,7 @@ $(document).ready(function() {
 									});
 								});
 							</script>
-							<div class="load_more">	
-								<ul id="myList">
-									<li>
-										<h4>Опубликовано 4 Мар</h4>
-										<div class="load-grids">
-											<div class="load-grid">
-												<p>Category</p>
-											</div>
-											<div class="load-grid">
-												<a href="movies.html">Entertainment</a>
-											</div>
-											<div class="clearfix"> </div>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div class="all-comments-info">
-								<div class="all-comments-buttons">
-									<ul>
-										<li><a href="#" class="top" onclick="vote()">Лайк</a></li>
-										<li><p id="num_votes">0</p></li>
-									</ul>
-								</div>
-								<script>
-									function vote() {
-										/**
-										 * comment() add a comment
-										 * @param {Base58} wif - private posting key
-										 * @param {String} parentAuthor - for add a comment, author of the post
-										 * @param {String} parentPermlink - for add a comment, url-address of the post
-										 * @param {String} author - author of the comment
-										 * @param {String} permlink - unique url-address of the comment
-										 * @param {String} title - for create a comment, empty field
-										 * @param {String} body - text of the comment
-										 * @param {String} jsonMetadata - meta-data of the post (images etc.)
-										*/
-										golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
-										golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
-										
-										var login = getCookie("login");
-										var password = getCookie("password");
-										var post_password = getCookie("post_password");
-										var priv_post_password = getCookie("priv_post_password");
-										
-										var auths = {
-										  posting: [[post_password]]
 
-										};
-										var verifyResult = golos.auth.verify(login, password, auths);
-										
-										var author = getCookie("author");
-										//author = "vgolos2";
-										
-										
-										var wif = $.trim(priv_post_password);
-										var voter = login;
-										var permlink = getCookie("video_permlink").toLowerCase();
-
-										var weight = 1;
-										console.log(wif, voter, author, permlink, weight);
-										golos.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
-										  //console.log(err, result);
-										});
-										
-										var num_votes = golos.api.getActiveVotes(author, permlink, function(err, result) {
-										  console.log("golos.api.getActiveVotes: ", err, result);
-										});
-										$("#num_votes").text("146");
-										//console.log("num_votes: ", num_votes);
-									}
-								</script>
-							</div>
-					</div>
 					<div class="all-comments">
 						<div class="all-comments-info">
 							<a href="#">All Comments (8,657)</a>
