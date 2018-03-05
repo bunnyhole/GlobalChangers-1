@@ -43,31 +43,3 @@ function deleteCookie(name) {
         expires: -1
     })
 }
-
-
-
-// // возвращает cookie с именем name, если есть, если нет, то undefined
-// function getCookie(name) {
-//   var matches = document.cookie.match(new RegExp(
-//     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-//   ));
-//   return matches ? decodeURIComponent(matches[1]) : undefined;
-// }
-//
-// function setCookie(name, value) {
-//   value = encodeURIComponent(value);
-//
-//   var updatedCookie = name + "=" + value;
-//
-//   //updatedCookie += "; " + "path=/";
-//
-//   document.cookie = updatedCookie;
-// }
-//
-// function deleteCookie(name) {
-//   var updatedCookie = name + "=";
-//
-//   updatedCookie += "; " + "expires=-1";
-//
-//   document.cookie = updatedCookie;
-// }
