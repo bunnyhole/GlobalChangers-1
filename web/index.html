@@ -44,7 +44,7 @@ function transfer(result, video_permlink, video_url) {
         setCookie("video_permlink", video_permlink.toLowerCase());
 		setCookie("video", video_url);
 		setCookie("author", result.author);
-        window.location.replace("single.html");    
+        window.location = "single.html";
   }
 }
 
@@ -162,7 +162,7 @@ $(document).ready(function() {
 						<h3>Популярное</h3>
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
+						<div class="nonstatic-grid-img recommended-grid-img">
 							<a><video id="video0" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
@@ -174,8 +174,8 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-                            <a ><video id="video1" style="width: 100%"/></a>
+						<div class="nonstatic-grid-img recommended-grid-img">
+                            <a ><video id="video1"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
 							<h3><a href="single.html" class="title title-info1"></a></h3>
@@ -186,7 +186,7 @@ $(document).ready(function() {
 						</div>
 					</div>
 					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
+						<div class="nonstatic-grid-img recommended-grid-img">
                             <a><video id="video2" style="width: 100%"/></a>
 						</div>
 						<div class="resent-grid-info recommended-grid-info">
