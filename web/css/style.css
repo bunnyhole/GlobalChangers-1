@@ -50,7 +50,6 @@ form.navbar-form.navbar-right {
     border: 1px solid #ccc;
 }
 .top-search form input[type="submit"] {
-    background: url(../images/9.png) no-repeat 0px 0px !important;
     width: 100% !important;
     height: 18px !important;
     border: none !important;
@@ -299,7 +298,6 @@ position: absolute;
   text-decoration: none;
   height: 40px;
   width: 40px;
-  background: transparent url("../images/themes.png") no-repeat left top;
   margin-top: -65px;
 }
 .callbacks_nav:active {
@@ -389,13 +387,6 @@ position: absolute;
 	display:inline-flex;
 	margin: 0px;
 	padding: 0px;
-}
-ul.social-slide li i{
-	width:70px;
-	height:74px;
-	background:url(../images/img-resources.png)no-repeat;
-	display: inline-block;
-	margin:0px 15px;
 }
 ul.social-slide li i.win{
 	background-position:-6px 0px;
@@ -567,7 +558,6 @@ a.btn.btn-primary.btn-lg.see-button.hvr-shutter-out-horizontal {
     color: #21DEEF;
     text-decoration: none;
     padding-left: 1.8em;
-    background: url(../images/u12.png) no-repeat 0px 1px;
 }
 .resent-grid-info p.author a.author:hover{
     text-decoration: none;
@@ -753,22 +743,7 @@ color: rgba(255, 255, 255, 0.54);
 .footer-bottom ul li.languages {
   width: 16%;
 }
-.footer-bottom ul li.languages select.form-control {
-    cursor: pointer;
-    color: #B3B3B3;
-    border: none;
-    background: url(../images/select-arrow.png) no-repeat 95% center;
-    border: solid 1px #B3B3B3;
-    border-radius: 3px;
-    font-size: 12px;
-    height: 32px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -o-border-radius: 3px;
-    -ms-border-radius: 3px;
-    outline: none;
-    -webkit-appearance: none;
-}
+
 .footer-bottom ul li.languages select.form-control:focus {
     outline: none;
     box-shadow: 0 0 0;
@@ -777,23 +752,7 @@ color: rgba(255, 255, 255, 0.54);
     color: #272C2E;
     border: none;
 }
-.footer-bottom ul li a.f-history{
-    background: url(../images/12.png) no-repeat 11px 8px;
-    color: #B3B3B3;
-    text-decoration: none;
-    font-size: 12px;
-    padding: .52em 1em .52em 3em;
-    border: none;
-    border: solid 1px #B3B3B3;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -o-border-radius: 3px;
-    -ms-border-radius: 3px;
-}
-.footer-bottom ul li a.f-help{
-  background: url(../images/13.png) no-repeat 11px 7px;
-}
+
 .footer-bottom ul li a.f-help:focus {
     outline: none;
 }
@@ -856,42 +815,7 @@ select.form-control.bfh-countries:hover {
     padding-left: 3em;
     line-height: 2em;
 }
-.share li a.icon{
-    background: url(../images/like.png) no-repeat 0px 0px;
-    height: 34px;
-    display: block;
-}
-.share li a.fb-icon{
-    background: url(../images/fb.png) no-repeat 0px 0px;
-}
-.share li a.rss-icon{
-    background: url(../images/rss.png) no-repeat 0px 0px;
-}
-.share li a.dribbble-icon{
-    background: url(../images/dribbble.png) no-repeat 0px 0px;
-}
-.share li a.twitter-icon{
-    background: url(../images/twitter.png) no-repeat 0px 0px;
-}
-.share li a.pinterest-icon{
-    background: url(../images/pinterest.png) no-repeat 0px 0px;
-}
-.share li a.behance-icon{
-    background: url(../images/behance.png) no-repeat 0px 0px;
-}
-.share li a.whatsapp-icon{
-    background: url(../images/whatsapp.png) no-repeat 0px 0px;
-}
-.share li a.comment-icon{
-    background: url(../images/comment.png) no-repeat 0px 0px;
-}
-.share li.view{
-    background: url(../images/view.png) no-repeat 0px 0px;
-    height: 34px;
-    display: block;
-    padding-left: 3em;
-    line-height: 2em;
-}
+
 .share li a:hover{
 	color:#464646;
 }
@@ -953,11 +877,10 @@ select.form-control.bfh-countries:hover {
 }
 /*-- history --*/
 .recommended-info p.history-text {
-	font-size: 13px;
-    color: #9E9E9E;
+	font-size: 400px;
+    color: #9e2a36;
     margin: 0;
-    margin-bottom: 670px;
-    line-height: 1.8em;
+    line-height: 1.5em;
 }
 .recommended-info p.history-text span{
 	display:block;
@@ -1465,49 +1388,7 @@ span.glyphicon.glyphicon-user {
 .copy-grid {
   margin-top: 3em;
 }
-/*-- developers --*/
-.developers-banner{
-  background: url(../images/dev-img.jpg) no-repeat 0px 0px;
-  background-size: cover;
-  padding: 14em 0 10em 0;
-}
-.developers-info {
-  width: 60%;
-}
-.developers-info h3{
-    color: #FFF;
-    font-size: 36px;
-    margin: 0;
-}
-.developers-info p{
-    color: #FFF;
-    font-size: 17px;
-    line-height: 1.8em;
-    margin: 1em 0 0 0;
-}
-.d-main{
-	padding:3em 0
-}
-.developers-grids{
-  margin: 4em 0 3em;
-}
-.developers-grid{
-    background: #f7f7f7;
-    padding: 2em;
-    margin-bottom: 3em;
-}
-.developers-grid a{
-    color: #21DEEF;
-    font-size: 24px;
-    margin: 0;
-    text-decoration: none;
-}
-.developers-grid p{
-    font-size: 13px;
-    line-height: 1.8em;
-    color: #9E9E9E;
-    margin: 1em 0 0 0;
-}
+
 /*-- creators --*/
 .creators-banner{
   background: url(../images/create.jpg) no-repeat 0px -105px !important;
@@ -1595,44 +1476,7 @@ span.glyphicon.glyphicon-user {
   font-size: 3.5em;
   color: #FFFFFF;
 }
-/*-- try --*/
-.try-banner{
-    background: url(../images/try-banner.jpg) no-repeat 0px 1px !important;
-    background-size: cover;
-}
-.try-left-info{
-    background: #f1f1f1;
-    padding: 2em;
-}
-.try-left-info h3{
-    color: #21DEEF;
-    font-size: 24px;
-    margin: 0;
-}
-.try-left-info p{
-    font-size: 13px;
-    line-height: 1.8em;
-    color: #9E9E9E;
-    margin: 1em 0 0 0;
-}
-.try-right-info{
-	background: #f1f1f1;
-    padding: 2em;
-}
-.try-right-left h3{
-    color: #21DEEF;
-    font-size: 3em;
-    margin: 0;
-}
-.try-right-left p{
-    font-size: 13px;
-    line-height: 1.8em;
-    color: #9E9E9E;
-    margin: 1em 0 0 0;
-}
-.try-right-left img{
-	width:100%;
-}
+
 /*-- upload --*/
 .upload {
     padding: 8em 0;
@@ -1715,14 +1559,6 @@ span.glyphicon.glyphicon-user {
     display: block;
     margin: 1em 0;
 }
-.upload-right-bottom-left ul li a{
-    font-size: 13px;
-    color: #9E9E9E;
-    margin: 1em 0;
-    text-decoration: none;
-    background: url(../images/h-arrow.png) no-repeat 0px 4px;
-    padding-left: 1.5em;
-}
 .upload-right-bottom-left ul li a:hover{
     text-decoration: none;
     color: #21DEEF;
@@ -1750,21 +1586,7 @@ span.glyphicon.glyphicon-user {
 	display:inline-block;
 	margin:0 .3em;
 }
-.side-bottom-icons ul li a.facebook{
-background: url(../images/social.png) no-repeat 0px 0px;
-    width: 30px;
-    height: 30px;
-    display: block;
-}
-.side-bottom-icons ul li a.twitter{
-    background: url(../images/social.png) no-repeat -30px 0px;
-}
-.side-bottom-icons ul li a.chrome{
-    background: url(../images/social.png) no-repeat -60px 0px;
-}
-.side-bottom-icons ul li a.dribbble{
-    background: url(../images/social.png) no-repeat -90px 0px;
-}
+
 .side-bottom-icons ul li a.facebook:hover{
 	opacity:.5;
 }
@@ -2749,10 +2571,6 @@ background: url(../images/social.png) no-repeat 0px 0px;
 	}
 	.try-right-left p {
 		font-size: 12px;
-	}
-	.try-banner {
-		background: url(../images/try-banner.jpg) no-repeat 0px 1px !important;
-		background-size: cover;
 	}
 	.footer-bottom ul li a.f-history {
 		padding: .52em 1em .52em 3em;

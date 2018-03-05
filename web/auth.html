@@ -50,15 +50,6 @@
 				Пятое правило: используйте только сгенерированные случайным образом пароли.<br><br>
 				Шестое правило: Никому не говорите свой пароль.<br><br>
 				Седьмое правило: Всегда надежно храните свой пароль.
-				<!-- <ul>
-        <li>Первое правило сети Голос: не теряйте свой пароль.</li>
-        <li>Второе правило Голос: Не теряйте свой пароль.</li>
-        <li>Третье правило Голос: мы не можем восстановить Ваш пароль.</li>
-        <li>Четвертое правило: если Вы можете запомнить свой пароль, значит он не безопасен.</li>
-        <li>Пятое правило: используйте только сгенерированные случайным образом пароли.</li>
-        <li>Шестое правило: Никому не говорите свой пароль.</li>
-        <li>Седьмое правило: Всегда надежно храните свой пароль.</li>
-      </ul> -->
 			</div>
 		</div>
 	</div>
@@ -66,9 +57,7 @@
 
 <script src="api/golos.min_test.js"></script>
 <script src="scripts/cookies.js"></script>
-<script>
-    // setTimeout('window.location = "index.html"',1000);
-</script>
+
 <script>
   golos.config.set('websocket', 'wss://ws.testnet3.golos.io');
   golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
@@ -77,9 +66,6 @@
         var login = document.getElementById("login-name").value;
         var password = document.getElementById("login-pass").value;
         var post_password = document.getElementById("login-post-pass").value;
-        // bunnyhole
-        // P5JrKAMbYzRdg4wsd3SCrtr5jNKQoPR1jYvc2H9N4FNscz6DdYCC
-	      // GLS69gkA3z1J9LtoZ3vameBQSpuEPsfhTjMjFfy27EEaSSabfZWWi
         var auths = {
             posting: [[post_password]]
         };
