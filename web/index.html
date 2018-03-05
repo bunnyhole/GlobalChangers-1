@@ -48,16 +48,19 @@ function transfer(result, video_permlink, video_url) {
   }
 }
 
-golos.api.getDiscussionsByCreated(query, function(err, result) {
+golos.api.getDiscussionsByHot(query, function(err, result) {
   if (!err) {
     for (var i = 0; i < 3; ++i) {
       var ipfs_id = result[i].body;
       //console.log(result[i]);
       var video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
       $(".title-info" + i).text(result[i].title);
+      $(".title-info" + i).css('font-size', '1em');
       $(".author" + i).text(result[i].author);
       $(".author" + i).attr('href', 'http://golos.io/@' + result[i].author);
+      $(".author" + i).css('font-size', '1.5em');
       $(".views-info" + i).text(result[i].curator_payout_value);
+      $(".views-info" + i).css('font-size', '3em');
       $("#video" + i)[0].src = video_url;
       $('#video' + i)[0].loop = 'loop';
       $('#video' + i)[0].muted = 'muted';
@@ -76,7 +79,7 @@ golos.api.getDiscussionsByCreated(query, function(err, result) {
 });
 
 query.limit = 8;
-golos.api.getDiscussionsByCreated(query, function(err, result) {
+golos.api.getDiscussionsByTrending(query, function(err, result) {
   if (!err) {
     for (var i = 0; i < 8; ++i) {
       var ipfs_id = result[i].body;

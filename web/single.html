@@ -36,24 +36,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             $("#HTML_element").html('<source src="' + getCookie("video") + '" type="video/mp4"></source>');
             $('#HTML_element')[0].play()
 
-            $('#h3_title').text(getCookie("video_name"));
-            //deleteCookie("video_name");
-            //deleteCookie("video");
-        });
-        $(document).ready(function() {
-            if (getCookie("login")) {
-                $(".auth-link").text("Выход");
-                $(".auth-link").attr('href', '#');
-                $(".signin").click(function () {
-                    deleteCookie("login");
-                    deleteCookie("password");
-                    deleteCookie("post_password");
-                    location.reload();
-                });
-            } else {
-                $(".auth-link").text("Вход");
-            }
-        });
+        $('#h3_title').text(getCookie("video_name"));
+        //deleteCookie("video_name")
+	var author = getCookie("author");
+	var permlink = getCookie("video_permlink").toLowerCase();
+        
+	golos.api.getActiveVotes(author, permlink, function(err, result) {
+		  console.log(result);
+		  $("#num_votes").text(result.length);
+	});
+;
+        //deleteCookie("video");
+    });
+$(document).ready(function() {
+  if (getCookie("login")) {
+      $(".auth-link").text("Выход");
+      $(".auth-link").attr('href', '#');
+      $(".signin").click(function () {
+        deleteCookie("login");
+        deleteCookie("password");
+        deleteCookie("post_password");
+        location.reload();
+      });
+  } else {
+    $(".auth-link").text("Вход");
+  }
+});
 
 	</script>
 
@@ -263,8 +271,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="all-comments-info">
 								<div class="all-comments-buttons">
 									<ul>
-										<li><a href="#" class="top" onclick="vote()">Лайк</a></li>
-										<li><p id="num_votes">0</p></li>
+									<li><a text-size="2em";href="#" class="top" id="upvote-button" onclick="vote()">^</a></li>
+										<li><h3 id="num_votes">0</h3></li>
 									</ul>
 								</div>
 								<script>
@@ -281,7 +289,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										 * @param {String} jsonMetadata - meta-data of the post (images etc.)
 										*/
 										golos.config.set('websocket', 'wss://ws.golos.io');
-										golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
+									//	golos.config.set('chain_id', '5876894a41e6361bde2e73278f07340f2eb8b41c2facd29099de9deef6cdb679');
 										
 										var login = getCookie("login");
 										var password = getCookie("password");
@@ -290,25 +298,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										
 										var auths = {
 										  posting: [[post_password]]
+										};
+										var verifyResult = golos.auth.verify(login, password, auths);
+										
+										var author = getCookie("author");
+										//author = "vgolos2";
+										
+										
+										var wif = priv_post_password;
+										var voter = login;
+										var permlink = getCookie("video_permlink").toLowerCase();
 
-							</a>
-						</div>
-						<div class="media-body">
-							<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-							<span>View all posts by :<a href="#"> Admin </a></span>
-						</div>
-					</div>
-					<div class="media">
-						<h5>Steven Smith</h5>
-						<div class="media-left">
-							<a href="#">
-
-							</a>
-						</div>
-						<div class="media-body">
-							<p>Maecenas ultricies rhoncus tincidunt maecenas imperdiet ipsum id ex pretium hendrerit maecenas imperdiet ipsum id ex pretium hendrerit</p>
-							<span>View all posts by :<a href="#"> Admin </a></span>
-						</div>
+										var weight = 10000;
+										console.log(wif, voter, author, permlink, weight);
+										golos.broadcast.vote(wif, voter, author, permlink, weight, function(err, result) {
+										  console.log(err, result);
+											golos.api.getActiveVotes(author, permlink, function(err, result) {
+											  $("#upvote-button").css("background-color", '#337ab7');
+											  $("#num_votes").text(result.length);
+											});
+										});
+										
+										//console.log("num_votes: ", num_votes);
+									}
+								</script>
+							</div>
 					</div>
 					<div class="media">
 						<h5>Marry Johne</h5>
