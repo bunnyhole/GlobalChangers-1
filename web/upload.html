@@ -61,7 +61,7 @@
                     var permlink = result[0].hash.toLowerCase();
                     var title = $("#video_name").val();
                     var body = result[0].hash;
-                    var jsonMetadata = '{}';
+                    var jsonMetadata = { tags: ['videotest'], app: 'vgolosApp' };
 
                     golos.broadcast.comment(wif, parentAuthor, parentPermlink, author, permlink, title, body, jsonMetadata, function(err, result) {
                         if (!err) {
