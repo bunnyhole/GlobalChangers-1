@@ -40,11 +40,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
      * @param {Integer} limit - how many records to return, the maximum value: 100
      */
 
-  function transfer(result, video_url) {
+  function transfer(result, video_permlink, video_url) {
   return function() {
         console.log(result.title)
         setCookie("video_name", result.title);
         setCookie("video", video_url);
+		setCookie("video", video_url);
+		setCookie("author", result.author);
         window.location.replace("single.html");    
   }
 }
@@ -82,7 +84,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     $("#video" + i)[0].src = video_url;
                     $('#video' + i)[0].loop = 'loop';
                     $('#video' + i)[0].muted = 'muted';
-                    $("#video" + i)[0].addEventListener("click", transfer(result[i], video_url), false);
+                    $("#video" + i)[0].addEventListener("click", transfer(result[i], ipfs_id, video_url), false);
 
                 }
             } else {

@@ -36,12 +36,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		limit: 18
 	};
 
-function transfer(result, video_url) {
+function transfer(result, video_permlink, video_url, ) {
   return function() {
         console.log(result.title)
         setCookie("video_name", result.title);
         setCookie("video", video_url);
-      	window.location="single.html";
+	setCookie("video_permlink", video_permlink.toLowerCase());
+			setCookie("author", result.author);
+
   }
 }
 
@@ -60,7 +62,7 @@ function transfer(result, video_url) {
 				$("#video" + i)[0].src = video_url;
 				$('#video' + i)[0].loop = 'loop';
 				$('#video' + i)[0].muted = 'muted';
-              $("#video" + i)[0].addEventListener("click", transfer(result[i], video_url), false);
+              $("#video" + i)[0].addEventListener("click", transfer(result[i], ipfs_id, video_url), false);
 
 			}
 		} else {
