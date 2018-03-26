@@ -5,7 +5,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+<meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap -->
@@ -51,11 +51,13 @@ function transfer(result, video_permlink, video_url, ) {
 	golos.api.getDiscussionsByCreated(query, function(err, result) {
 		if (!err) {
 			for (var i = 0; i < 18; ++i) {
-        console.log(result.length)
+        console.log(result.length);
+				console.log(result[0]);
 				var ipfs_id = result[i].body;
 				//console.log(result[i]);
 				let video_url = 'https://ipfs.io/ipfs/' + ipfs_id;
 				$(".title-info" + i).text(result[i].title);
+				$(".title-info" + i).attr('href', "single.html?v=" + result[i].permlink);
 				$(".author" + i).text(result[i].author);
 				$(".author" + i).attr('href', 'http://golos.io/@' + result[i].author);
 				$(".views-info" + i).text(result[i].curator_payout_value);

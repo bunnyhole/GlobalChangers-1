@@ -24,11 +24,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 			crossorigin="anonymous"></script>
 
-	<script src="scripts/cookies.js">
-	</script>
+	<script src="scripts/cookies.js"></script>
+	<script src="scripts/url_parser.js"></script>
 
 	<script>
         $(document).ready(function() {
+						var video_id = getQueryVariable('v');
+						console.log("video id = " + video_id);
+
             var a = getCookie("video_name");
             console.log($("#h3_title"));
             $("#h3_title").html(a);
@@ -40,7 +43,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         //deleteCookie("video_name")
 	var author = getCookie("author");
 	var permlink = getCookie("video_permlink").toLowerCase();
-	console.log(permlink);        
+	console.log(permlink);
 	golos.api.getActiveVotes(author, permlink, function(err, result) {
 		  console.log(result);
 		  $("#num_votes").text(result.length);
@@ -144,21 +147,21 @@ $(document).ready(function() {
 										 * @param {String} jsonMetadata - meta-data of the post (images etc.)
 										*/
 										golos.config.set('websocket', 'wss://ws.golos.io');
-										
+
 										var login = getCookie("login");
 										var password = getCookie("password");
 										var post_password = getCookie("post_password");
 										var priv_post_password = getCookie("priv_post_password");
-										
+
 										var auths = {
 										  posting: [[post_password]]
 										};
 										var verifyResult = golos.auth.verify(login, password, auths);
-										
+
 										var author = getCookie("author");
 										//author = "vgolos2";
-										
-										
+
+
 										var wif = priv_post_password;
 										var voter = login;
 										var permlink = getCookie("video_permlink").toLowerCase();
@@ -172,7 +175,7 @@ $(document).ready(function() {
 											  $("#num_votes").text(result.length);
 											});
 										});
-										
+
 										//console.log("num_votes: ", num_votes);
 									}
 								</script>
